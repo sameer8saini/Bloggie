@@ -11,77 +11,82 @@
 
 <partial name="_Notification">
 
-@if (Model.BlogPost != null)
-{
-    <div>
-        <div class="container">
-            <form method="post">
-                <div class="mb-3">
-                    <label for="heading" class="form-label">Id</label>
-                    <input type="text" class="form-control" id="id" asp-for="BlogPost.Id" readonly>
-                </div>
+    @if (Model.BlogPost != null)
+    {
+        <div>
+            <div class="container">
+                <form method="post">
+                    <div class="mb-3">
+                        <label for="heading" class="form-label">Id</label>
+                        <input type="text" class="form-control" id="id" asp-for="BlogPost.Id" readonly>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="heading" class="form-label">Heading</label>
-                    <input type="text" class="form-control" id="heading" asp-for="BlogPost.Heading">
-                </div>
+                    <div class="mb-3">
+                        <label for="heading" class="form-label">Heading</label>
+                        <input type="text" class="form-control" id="heading" asp-for="BlogPost.Heading">
+                    </div>
 
-                <div class="mb-3">
-                    <label for="pageTitle" class="form-label">Page Title</label>
-                    <input type="text" class="form-control" id="pageTitle" asp-for="BlogPost.PageTitle">
-                </div>
+                    <div class="mb-3">
+                        <label for="pageTitle" class="form-label">Page Title</label>
+                        <input type="text" class="form-control" id="pageTitle" asp-for="BlogPost.PageTitle">
+                    </div>
 
-                <div class="mb-3">
-                    <label for="content" class="form-label">Content</label>
-                    <textarea class="form-control" id="content" asp-for="BlogPost.Content"></textarea>
-                </div>
+                    <div class="mb-3">
+                        <label for="content" class="form-label">Content</label>
+                        <textarea class="form-control" id="content" asp-for="BlogPost.Content"></textarea>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="shortDescription" class="form-label">Short Description</label>
-                    <input type="text" class="form-control" id="shortDescription" asp-for="BlogPost.ShortDescription">
-                </div>
+                    <div class="mb-3">
+                        <label for="shortDescription" class="form-label">Short Description</label>
+                        <input type="text" class="form-control" id="shortDescription" asp-for="BlogPost.ShortDescription">
+                    </div>
 
-                <div class="mb-3">
-                    <label for="featuredImageUrl" class="form-label">Featured Image Url</label>
-                    <input type="text" class="form-control" id="featuredImageUrl" asp-for="BlogPost.FeaturedImageUrl">
-                </div>
+                    <div class="mb-3">
+                        <label for="featuredImageUrl" class="form-label">Featured Image Url</label>
+                        <input type="text" class="form-control" id="featuredImageUrl" asp-for="BlogPost.FeaturedImageUrl">
+                    </div>
 
-                <div class="mb-3">
-                    <label for="urlHandle" class="form-label">Url Handle</label>
-                    <input type="text" class="form-control" id="urlHandle" asp-for="BlogPost.UrlHandle">
-                </div>
+                    <div class="mb-3">
+                        <label for="urlHandle" class="form-label">Url Handle</label>
+                        <input type="text" class="form-control" id="urlHandle" asp-for="BlogPost.UrlHandle">
+                    </div>
 
-                <div class="mb-3">
-                    <label for="publishedDate" class="form-label">Published Date</label>
-                    <input type="date" class="form-control" id="publishedDate" asp-for="BlogPost.PublishedDate">
-                </div>
+                    <div class="mb-3">
+                        <label for="publishedDate" class="form-label">Published Date</label>
+                        <input type="date" class="form-control" id="publishedDate" asp-for="BlogPost.PublishedDate">
+                    </div>
 
-                <div class="mb-3">
-                    <label for="author" class="form-label">Author</label>
-                    <input type="text" class="form-control" id="author" asp-for="BlogPost.Author">
-                </div>
+                    <div class="mb-3">
+                        <label for="author" class="form-label">Author</label>
+                        <input type="text" class="form-control" id="author" asp-for="BlogPost.Author">
+                    </div>
 
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" id="isVisible" asp-for="BlogPost.Visible">
-                    <label class="form-check-label" for="isVisible">
-                        Is Visible
-                    </label>
-                </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="isVisible" asp-for="BlogPost.Visible">
+                        <label class="form-check-label" for="isVisible">
+                            Is Visible
+                        </label>
+                    </div>
 
-                <div class="mb-3 d-flex justify-content-between">
-                    <button class="btn btn-primary" type="submit" asp-page-handler="Edit">Submit</button>
+                    <div class="mb-3 d-flex justify-content-between">
+                        <button class="btn btn-primary" type="submit" asp-page-handler="Edit">Submit</button>
 
-                    <button class="btn btn-danger" type="submit" asp-page-handler="Delete">Delete</button>
-                </div>
+                        <button class="btn btn-danger" type="submit" asp-page-handler="Delete">Delete</button>
+                    </div>
 
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
-}
-else
-{
-    <div class="container">
-        <p>Blog Post Not Found!</p>
-    </div>
-}
+    }
+    else
+    {
+        <div class="container">
+            <p>Blog Post Not Found!</p>
+        </div>
+    }
 
+    @section Scripts {
+        <script>
+            var editor = new FroalaEditor('#content');
+        </script>
+    }

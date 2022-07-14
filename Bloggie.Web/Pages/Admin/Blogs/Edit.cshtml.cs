@@ -30,8 +30,6 @@ namespace Bloggie.Web.Pages.Admin.Blogs
         {
             try
             {
-                throw new Exception();
-
                 await blogPostRepository.UpdateAsync(BlogPost);
 
                 ViewData["Notification"] = new Notification
