@@ -1,0 +1,31 @@
+﻿@using Bloggie.Web.Models.ViewModels
+
+@{
+    var notification = (Notification)ViewData["Notification"];
+    if (notification != null)
+    {
+        var notificationClass = "";
+        switch (notification.Type)
+        {
+            case Enums.NotificationType.Success:
+                notificationClass = "alert-success";
+                break;
+            case Enums.NotificationType.Info:
+                notificationClass = "alert-secondary";
+                break;
+            case Enums.NotificationType.Error:
+                notificationClass = "alert-danger";
+                break;
+            default:
+                notificationClass = "";
+                break;
+        }
+
+        <div class="container mb-5">
+            <div class="alert @notificationClass alert-dismissible fade show mb-5" role="alert">
+                @Html.Raw(notification.Message)
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    }
+}
