@@ -15,6 +15,9 @@ namespace Bloggie.Web.Pages.Admin.Blogs
         [BindProperty]
         public BlogPost BlogPost { get; set; }
 
+        [BindProperty]
+        public IFormFile FeaturedImage { get; set; }
+
         public EditModel(IBlogPostRepository blogPostRepository)
         {
             this.blogPostRepository = blogPostRepository;
