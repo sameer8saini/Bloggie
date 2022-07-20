@@ -75,6 +75,11 @@
                         <input type="text" class="form-control" id="author" asp-for="BlogPost.Author">
                     </div>
 
+                    <div class="mb-3">
+                        <label for="tags" class="form-label">Tags (comma separated)</label>
+                        <input type="text" id="tags" class="form-control" asp-for="Tags" />
+                    </div>
+
                     <div class="form-check mb-3">
                         <input class="form-check-input" type="checkbox" id="isVisible" asp-for="BlogPost.Visible">
                         <label class="form-check-label" for="isVisible">
