@@ -6,7 +6,7 @@ namespace Bloggie.Web.Data
 {
     public class AuthDbContext : IdentityDbContext
     {
-        public AuthDbContext(DbContextOptions options) : base(options)
+        public AuthDbContext(DbContextOptions<AuthDbContext> options) : base(options)
         {
         }
 
@@ -51,7 +51,9 @@ namespace Bloggie.Web.Data
             {
                 Id = superAdminId,
                 UserName = "superadmin@bloggie.com",
-                Email = "superadmin@bloggie.com"
+                Email = "superadmin@bloggie.com",
+                NormalizedEmail = "superadmin@bloggie.com".ToUpper(),
+                NormalizedUserName = "superadmin@bloggie.com".ToUpper()
             };
 
             superAdminUser.PasswordHash = new PasswordHasher<IdentityUser>()
