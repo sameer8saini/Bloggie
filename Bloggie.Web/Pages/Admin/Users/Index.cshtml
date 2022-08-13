@@ -1,0 +1,135 @@
+﻿@page
+@model Bloggie.Web.Pages.Admin.Users.IndexModel
+@{
+}
+
+
+<div class="bg-secondary bg-opacity-10 py-2 mb-5">
+    <div class="container">
+        <h1>Users</h1>
+    </div>
+</div>
+
+
+<div>
+    <div class="container">
+
+        <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                Add User
+            </button>
+        </div>
+
+        <div id="userList">
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input type="text" name="txtUsername" id="txtUsername" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="txtEmail" id="txtEmail" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="txtPassword" id="txtPassword" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input type="checkbox" id="userCheckbox" name="userCheckbox" class="form-check-input" value="User" disabled checked />
+                        <label class="form-check-label" for="userCheckbox">
+                            User Role
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="adminCheckbox" name="adminCheckbox" class="form-check-input" value="Admin" />
+                        <label class="form-check-label" for="adminCheckbox">
+                            Admin Role
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="btnSave">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+
+        const userListElement = document.getElementById('userList');
+        const saveBtn = document.getElementById('btnSave');
+
+        const usernameElement = document.getElementById('txtUsername');
+        const emailElement = document.getElementById('txtEmail');
+        const passwordElement = document.getElementById('txtPassword');
+        const adminCheckboxElement = document.getElementById('adminCheckbox');
+
+        function getUsers() {
+            fetch('/admin/users/index?handler=users', {
+                method: 'GET',
+                headers: {
+                    'Accept': '*/*'
+                }
+            }).then(data => data.text())
+                .then(result => userListElement.innerHTML = result);
+        }
+
+        function addUser() {
+            const roles = ['User'];
+
+            if (adminCheckboxElement.checked) {
+                roles.push(adminCheckboxElement.value)
+            }
+
+            console.log(usernameElement.value, emailElement.value, passwordElement.value, roles);
+
+            const body = {
+                username: usernameElement.value,
+                email: emailElement.value,
+                password: passwordElement.value,
+                roles: roles
+            };
+
+
+            fetch('/api/user/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': '*/*'
+                },
+                body: JSON.stringify(body)
+            }).then(() => {
+                getUsers();
+                $('#addUserModal').modal('hide');
+
+                usernameElement.value = '';
+                emailElement.value = '';
+                passwordElement.value = '';
+            });
+
+        }
+
+        getUsers();
+
+
+        saveBtn.addEventListener('click', addUser);
+
+    </script>
+}
