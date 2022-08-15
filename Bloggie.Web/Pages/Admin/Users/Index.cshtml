@@ -1,0 +1,130 @@
+﻿@page
+@model Bloggie.Web.Pages.Admin.Users.IndexModel
+@{
+}
+
+<div class="bg-secondary bg-opacity-10 py-2 mb-5">
+    <div class="container">
+        <h1>Users</h1>
+    </div>
+</div>
+
+<div>
+    <div class="container">
+
+        <div class="mb-3 d-flex justify-content-end">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-dark" 
+                    data-bs-toggle="modal" data-bs-target="#addUserModal">
+                Add User
+            </button>
+        </div>
+
+        <form method="post" asp-page-handler="delete" id="deleteUserForm">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model.Users)
+                    {
+                        <tr>
+                            <td>@user.Id</td>
+                            <td>@user.Username</td>
+                            <td>@user.Email</td>
+                            <td>
+                                <a class="btn btn-danger user-delete-btn"
+                                   data-id="@user.Id">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <input type="hidden" asp-for="SelectedUserId" id="selectedUserId"/>
+
+        </form>
+    </div>
+</div>
+
+
+<form method="post">
+    <!-- Modal -->
+    <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <input type="text" class="form-control"
+                               asp-for="AddUserRequest.Username"/>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control"
+                               asp-for="AddUserRequest.Email"/>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control"
+                               asp-for="AddUserRequest.Password"/>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox"
+                                   value="User" checked disabled>
+                            <label class="form-check-label" for="flexCheckDefault">
+                                User Role
+                            </label>
+                        </div>
+
+                        @if (User.IsInRole("SuperAdmin"))
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox"
+                                       asp-for="AddUserRequest.AdminCheckbox">
+                                <label class="form-check-label" for="flexCheckChecked">
+                                    Admin Role
+                                </label>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-dark">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+    <script>
+        const userDeleteElements = document.querySelectorAll('.user-delete-btn');
+        const selectedUserIdElement = document.getElementById('selectedUserId');
+        const deleteUserFormElement = document.getElementById('deleteUserForm');
+
+        userDeleteElements.forEach((element) => {
+
+            element.addEventListener('click', function () {
+                const userId = element.dataset.id;
+                selectedUserIdElement.value = userId;
+                deleteUserFormElement.submit();
+            })
+        })
+
+
+    </script>
+}
