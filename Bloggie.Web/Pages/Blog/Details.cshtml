@@ -12,7 +12,9 @@
         <div class="row justify-content-center">
             <div class="col-12 col-lg-6">
 
-                @ViewData["Title"] = Model.BlogPost.PageTitle;
+                @{ 
+                    ViewData["Title"] = Model.BlogPost.PageTitle;
+                }
 
                 <h1 class="mb-3">@Model.BlogPost.Heading</h1>
 
