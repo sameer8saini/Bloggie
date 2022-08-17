@@ -5,15 +5,15 @@
 @inject UserManager<IdentityUser> userManager
 @inject SignInManager<IdentityUser> signInManager
 
-@{
-    ViewData["Title"] = Model.BlogPost.PageTitle;
-}
 
-<div class="container my-5">
-    <div class="row justify-content-center">
-        <div class="col-12 col-lg-6">
-            @if (Model.BlogPost != null)
-            {
+@if (Model.BlogPost != null)
+{
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-6">
+
+                ViewData["Title"] = Model.BlogPost.PageTitle;
+
                 <h1 class="mb-3">@Model.BlogPost.Heading</h1>
 
                 <div class="d-flex justify-content-between mb-3">
@@ -72,6 +72,7 @@
                                 <div class="mb-3">
                                     <label class="form-label">Comment Description</label>
                                     <input type="text" class="form-control" asp-for="CommentDescription" />
+                                    <span class="text-danger" asp-validation-for="CommentDescription"></span>
                                 </div>
                                 <div class="mb-3">
                                     <button type="submit" class="btn btn-dark">Add Comment</button>
@@ -107,20 +108,12 @@
 
                     </div>
                 </div>
-
-            }
-            else
-            {
-                <h2>Blog post not found!</h2>
-            }
-
-
+            </div>
         </div>
     </div>
-</div>
 
-@section Scripts {
-    <script>
+    @section Scripts {
+        <script>
         const btnLike = document.getElementById('btnLike');
         const totalLikesElement = document.getElementById('totalLikes');
 
@@ -155,5 +148,14 @@
 
     btnLike.addEventListener('click', addLikeForBlog);
 
-    </script>
+        </script>
+    }
 }
+else
+{
+    <div class="container mt-3">
+        <h2>Blog post not found!</h2>
+    </div>
+}
+
+

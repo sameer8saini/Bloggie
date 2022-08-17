@@ -2,8 +2,10 @@
 
 namespace Bloggie.Web.Models.ViewModels
 {
-    public class AddBlogPost
+    public class EditBlogPostRequest
     {
+        [Required]
+        public Guid Id { get; set; }
         [Required]
         public string Heading { get; set; }
         [Required]
